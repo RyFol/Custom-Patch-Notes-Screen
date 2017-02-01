@@ -1,0 +1,203 @@
+{
+  "namespace": "patch_notes", // This JSON has been modified By @RyFol, DO NOT edit or use any code inside this JSON file.
+
+  "solid_texture": { 
+    "type": "image",
+    "texture": "textures/gui/newgui/White",
+    "color": [ 0.0, 0.0, 0.0 ],
+    "nineslice_size": 1
+  },
+
+  "image_with_background@patch_notes.solid_texture": {
+    "$background_size|default": [ "100%", "100%" ],
+    "size": "$background_size",
+    "controls": [
+      {
+        "image@$image": {
+          "layer": 1,
+          "$image_size|default": [ "100%-2px", "100%-2px" ],
+          "size": "$image_size"
+        }
+      }
+    ]
+  },
+
+  "white_image@patch_notes.solid_texture": {
+    "color": [ 1, 1, 1 ]
+  },
+  
+ "patch_notes_header_background": {
+    "type": "panel",
+    "controls": [
+      {
+        "black_background": {
+          "type": "image",
+          "texture": "textures/gui/changelogtitle",
+          "size": [ "100%", "100%c+100px" ],
+
+          "controls": [
+            {
+              "content@$header_content": {
+                "variables": [
+                  {
+                    "requires": "(not $show_offer)",
+                    "$header_size": [ "100%-6px", "100%c" ]
+                  }
+                ],
+
+                "$header_size|default": [ "100%-6px", "50%c" ],
+                "size": "$header_size"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+
+  "patch_notes_header": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "patch_notes_background@patch_notes.patch_notes_header_background": {
+          "size": [ "100% - 4px", "100%c" ],
+          "variables": [
+            {
+              "requires": "not $show_offer",
+              "$header_content": "patch_notes_header_content_with_offer"
+
+            }
+          ],
+          "$header_content|default": "patch_notes_header_content_without_offer"
+        }
+      }
+    ]
+  },
+
+  "scroll_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "default" ],
+    "controls": [
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      { "patch_notes_header@patch_notes.patch_notes_header": { } },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+  
+              "spacer": {
+                "type": "panel",
+                "size": [ 0, 8 ]
+              }
+            },
+	{
+        "@settings_common.option_custom_control": { // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+          "$option_label": "-More EPIC"
+        }
+      },
+            {
+              "spacer": {
+                "type": "panel",
+                "size": [ 0, 2 ]
+              }
+            },
+	{
+        "@settings_common.option_custom_control": { // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+          "$option_label": "-Fixed Many minor bugs and lag issues"
+        }
+      },
+	{
+        "@settings_common.option_custom_control": { // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+          "$option_label": "-Added a changelog and bug report tab, Obviously ;)"
+        }
+      },
+	{
+        "@settings_common.option_custom_control": { // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+          "$option_label": "-Minor torch improvements (Feedback needed)"
+        }
+      },
+	{
+        "@settings_common.option_custom_control": { // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+          "$option_label": "-Cloud fixes (Report all bugs)"
+        }
+      },
+      {
+
+        "patch_notes_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "patch_notes_text": {
+                "type": "label",
+                "size": [ "100%-4px", "default" ],
+                "text": "",
+                "bindings": [
+                  {
+                    "binding_name": "#patch_description",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  
+
+  "patch_notes_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "patch_notes.scroll_content",
+          "$show_background": false,
+          "$scroll_size": [ 4, "100%-4px" ],
+          "$scrolling_pane_size|default": [ "100%", "default" ]
+        }
+      }
+    ]
+  },
+
+  "continue_button@common_buttons.light_text_button": {
+    "$button_text": "patchNotes.continue",
+    "$pressed_button_name": "button.menu_exit"
+  },
+
+  "patch_notes_dialog@common_dialogs.main_panel_small_title_one_button": {
+    "size": "$patch_notes_screen_size",
+    
+    "$custom_title_label": "common_dialogs.standard_title_label",
+    "$text_name": "Changelog: SSPE §2v4.0", // Made By @RyFol, DO NOT edit or use any code inside this JSON file.
+    "$title_text_binding_type": "global",
+    "$use_custom_title_control": true,
+
+    "$child_control": "patch_notes.patch_notes_content",
+    "$button_panel": "patch_notes.continue_button"
+  },
+
+  "patch_notes_screen@common.base_screen": {
+    "$screen_content": "patch_notes.patch_notes_dialog",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}
